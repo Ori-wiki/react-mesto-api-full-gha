@@ -11,7 +11,7 @@ module.exports = (req, res, next) => {
   if (!authorization || !authorization.startsWith('Bearer ')) {
     return next(new AuthError('Пользователь не авторизован!'));
   }
-
+  // const token = authorization.replace('Bearer ', '');
   const token = extractBearerToken(authorization);
   let payload;
 

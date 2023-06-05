@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const helmet = require('helmet');
 const { errors } = require('celebrate');
 const process = require('process');
+const cors = require('cors');
 const cards = require('./routes/cards');
 const users = require('./routes/users');
 const { createUser, login } = require('./controllers/users');
@@ -22,7 +23,8 @@ mongoose.connect('mongodb://127.0.0.1:27017/mestodb', {
 });
 
 app.use(helmet());
-app.disable('x-powered-by');
+app.use(cors());
+// app.disable('x-powered-by');
 app.use(express.json());
 app.use(limiter);
 

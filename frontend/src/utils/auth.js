@@ -1,3 +1,4 @@
+// import { BASE_URL } from './utils';
 class Auth {
   constructor({ baseUrl }) {
     this._url = baseUrl;
@@ -11,10 +12,11 @@ class Auth {
       );
     }
   }
-
   register = (data) => {
-    return fetch(`${this._url}/signup`, {
+    console.log("\x1b[41m", data)
+    return fetch(`${this._url}signup`, {
       method: "POST",
+      credentials: 'include',
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
@@ -25,9 +27,8 @@ class Auth {
       }),
     }).then((res) => this._checkResult(res));
   };
-
   authorize = (email, password) => {
-    return fetch(`${this._url}/signin`, {
+    return fetch(`${this._url}signin`, {
       method: "POST",
       headers: {
         Accept: "application/json",
@@ -39,21 +40,22 @@ class Auth {
       }),
     }).then((res) => this._checkResult(res));
   };
-
-  getContent = (token) => {
-    return fetch(`${this._url}/users/me`, {
+  getContent = () => {
+    const token = localStorage.getItem('jwt')
+    return fetch(`${this._url}users/me`, {
       method: "GET",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
+        authorization: `Bearer ${token}`,
       },
     }).then((res) => this._checkResult(res));
   };
 }
 
 const auth = new Auth({
-  baseUrl: "https://auth.nomoreparties.co",
+  // baseUrl: "https://auth.nomoreparties.co",
+  baseUrl: 'http://localhost:3000/'
 });
 
 export default auth;

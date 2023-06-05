@@ -33,6 +33,7 @@ const getUserById = (req, res, next) => {
     });
 };
 const createUser = (req, res, next) => {
+  console.log('\x1b[41m', 'попытка создания юзера');
   const {
     name, about, avatar, email,
   } = req.body;
@@ -46,11 +47,13 @@ const createUser = (req, res, next) => {
       password: hash,
     }))
     .then((user) => res.status(201).send({
-      name: user.name,
-      about: user.about,
-      avatar: user.avatar,
-      _id: user._id,
-      email: user.email,
+      data: user.toJSON(),
+
+      // name: user.name,
+      // about: user.about,
+      // avatar: user.avatar,
+      // _id: user._id,
+      // email: user.email,
     }))
     .catch((e) => {
       if (e.name === 'ValidationError') {
@@ -121,7 +124,7 @@ const getUserInfo = (req, res, next) => {
       if (!user) {
         throw new NotFoundError('Пользователь не найден');
       }
-      return res.send(user);
+      return res.send({ data: user });
     })
     .catch((e) => {
       if (e.name === 'CastError') {
