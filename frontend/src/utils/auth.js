@@ -13,7 +13,6 @@ class Auth {
     }
   }
   register = (data) => {
-    console.log("\x1b[41m", data)
     return fetch(`${this._url}signup`, {
       method: "POST",
       credentials: 'include',
