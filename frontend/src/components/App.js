@@ -96,7 +96,7 @@ function App() {
      
     if (jwt) {
       auth.getContent(jwt).then((res) => {
-        console.log(res)
+        
         setIsUserEmail(res.email);
 
         setLoggedIn(true);

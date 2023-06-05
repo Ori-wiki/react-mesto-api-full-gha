@@ -14,7 +14,6 @@ function Main({
 }) {
   const currentUser = React.useContext(CurrentUserContext);
   const { name, about, avatar } = currentUser;
-
   // const [cards, setCards] = React.useState([]);
 
   return (

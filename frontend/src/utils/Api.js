@@ -54,8 +54,12 @@ class Api {
   }
 
   getUserInfo() {
+    const token = localStorage.getItem('jwt')
     return fetch(`${this._baseUrl}users/me`, {
-      headers: this._headers,
+      headers: {
+        'Content-Type': 'application/json',
+        authorization: `Bearer ${token}`,
+      },
     }).then((res) => this._checkResult(res));
   }
 

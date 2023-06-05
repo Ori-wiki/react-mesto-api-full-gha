@@ -46,7 +46,7 @@ const createUser = (req, res, next) => {
       password: hash,
     }))
     .then((user) => res.status(201).send({
-      data: user.toJSON(),
+      data: user,
 
       // name: user.name,
       // about: user.about,
