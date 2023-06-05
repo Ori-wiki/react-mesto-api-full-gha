@@ -13,6 +13,7 @@ const NotFoundError = require('./errors/NotFoundError');
 const { signUp, signIn } = require('./middlewares/validation');
 const errorHandler = require('./middlewares/errorHandler');
 const { limiter } = require('./middlewares/limiter');
+const { requestLogger, errorLogger } = require('./middlewares/logger');
 
 const { PORT = 3000 } = process.env;
 const app = express();
@@ -28,6 +29,8 @@ app.use(cors());
 app.use(express.json());
 app.use(limiter);
 
+app.use(requestLogger);
+
 app.post('/signin', signIn, login);
 app.post('/signup', signUp, createUser);
 
@@ -38,6 +41,7 @@ app.use('/', users);
 app.use('*', (req, res, next) => {
   next(new NotFoundError('Запрашиваемая страница не найдена'));
 });
+app.use(errorLogger);
 
 app.use(errors());
 
