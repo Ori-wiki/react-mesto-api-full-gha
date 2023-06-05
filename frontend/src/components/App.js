@@ -93,11 +93,11 @@ function App() {
   }
   const handleTokenCheck = React.useCallback(() => {
     const jwt = localStorage.getItem("jwt");
-
+     
     if (jwt) {
       auth.getContent(jwt).then((res) => {
-        
-        setIsUserEmail(res.data.email);
+        console.log(res)
+        setIsUserEmail(res.email);
 
         setLoggedIn(true);
 

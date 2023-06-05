@@ -1,4 +1,4 @@
-// import { BASE_URL } from './utils';
+import { BASE_URL } from './utils';
 class Auth {
   constructor({ baseUrl }) {
     this._url = baseUrl;
@@ -55,7 +55,7 @@ class Auth {
 
 const auth = new Auth({
   // baseUrl: "https://auth.nomoreparties.co",
-  baseUrl: 'http://localhost:3000/'
+  baseUrl: BASE_URL
 });
 
 export default auth;

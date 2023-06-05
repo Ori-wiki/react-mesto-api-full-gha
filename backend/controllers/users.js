@@ -33,7 +33,6 @@ const getUserById = (req, res, next) => {
     });
 };
 const createUser = (req, res, next) => {
-  console.log('\x1b[41m', 'попытка создания юзера');
   const {
     name, about, avatar, email,
   } = req.body;
@@ -124,7 +123,7 @@ const getUserInfo = (req, res, next) => {
       if (!user) {
         throw new NotFoundError('Пользователь не найден');
       }
-      return res.send({ data: user });
+      return res.send(user);
     })
     .catch((e) => {
       if (e.name === 'CastError') {
