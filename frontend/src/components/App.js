@@ -34,10 +34,11 @@ function App() {
     api
       .getUserInfo()
       .then((res) => {
+        console.log(res)
         setCurrentUser(res);
       })
       .catch((err) => console.log(err));
-  }, []);
+  }, [], );
   React.useEffect(() => {
     api
       .getCards()
@@ -85,11 +86,12 @@ function App() {
       .authorize(email, password)
       .then((data) => {
         localStorage.setItem("jwt", data.token);
+
         setLoggedIn(true);
         setIsUserEmail(email);
         navigate("/");
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.log(err))
   }
   const handleTokenCheck = React.useCallback(() => {
     const jwt = localStorage.getItem("jwt");
