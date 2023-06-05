@@ -53,7 +53,6 @@ class Auth {
 }
 
 const auth = new Auth({
-  // baseUrl: "https://auth.nomoreparties.co",
   baseUrl: BASE_URL
 });
 
