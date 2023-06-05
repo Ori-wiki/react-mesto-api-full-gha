@@ -187,7 +187,6 @@ function App() {
               />
             }
           />
-          {/* <Route path="*" /> */}
         </Routes>
 
         <Footer />
