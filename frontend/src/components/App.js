@@ -1,20 +1,20 @@
-import React from "react";
-import { Route, Routes, useNavigate } from "react-router-dom";
-import { CurrentUserContext } from "../contexts/CurrentUserContext.js";
+import React from 'react';
+import { Route, Routes, useNavigate } from 'react-router-dom';
+import { CurrentUserContext } from '../contexts/CurrentUserContext.js';
 
-import api from "../utils/Api.js";
-import auth from "../utils/Auth.js";
-import Header from "./Header.js";
-import Main from "./Main.js";
-import Footer from "./Footer.js";
-import ImagePopup from "./ImagePopup.js";
-import EditProfilePopup from "./EditProfilePopup.js";
-import EditAvatarPopup from "./EditAvatarPopup.js";
-import AddPlacePopup from "./AddPlacePopup.js";
-import Login from "./Login.js";
-import Register from "./Register.js";
-import InfoTooltip from "./InfoTooltip";
-import ProtectedRoute from "./ProtectedRoute";
+import api from '../utils/Api.js';
+import auth from '../utils/Auth.js';
+import Header from './Header.js';
+import Main from './Main.js';
+import Footer from './Footer.js';
+import ImagePopup from './ImagePopup.js';
+import EditProfilePopup from './EditProfilePopup.js';
+import EditAvatarPopup from './EditAvatarPopup.js';
+import AddPlacePopup from './AddPlacePopup.js';
+import Login from './Login.js';
+import Register from './Register.js';
+import InfoTooltip from './InfoTooltip';
+import ProtectedRoute from './ProtectedRoute';
 
 function App() {
   const navigate = useNavigate();
@@ -31,14 +31,14 @@ function App() {
   const [currentUser, setCurrentUser] = React.useState({});
   const [cards, setCards] = React.useState([]);
   React.useEffect(() => {
+    console.log('qwe');
     api
       .getUserInfo()
       .then((res) => {
-        console.log(res)
         setCurrentUser(res);
       })
       .catch((err) => console.log(err));
-  }, [], );
+  }, []);
   React.useEffect(() => {
     api
       .getCards()
@@ -73,7 +73,7 @@ function App() {
       .then((res) => {
         setIsSuccessRegister(true);
         setIsInfoTooltipOpen(true);
-        navigate("/sign-in");
+        navigate('/sign-in');
       })
       .catch((err) => {
         console.log(err);
@@ -85,25 +85,32 @@ function App() {
     auth
       .authorize(email, password)
       .then((data) => {
-        localStorage.setItem("jwt", data.token);
-
+        localStorage.setItem('jwt', data.token);
+        console.log(data);
         setLoggedIn(true);
         setIsUserEmail(email);
-        navigate("/");
+        navigate('/');
       })
-      .catch((err) => console.log(err))
+      .then(() => {
+        api
+          .getUserInfo()
+          .then((res) => {
+            setCurrentUser(res);
+          })
+          .catch((err) => console.log(err));
+      })
+      .catch((err) => console.log(err));
   }
   const handleTokenCheck = React.useCallback(() => {
-    const jwt = localStorage.getItem("jwt");
-     
+    const jwt = localStorage.getItem('jwt');
+
     if (jwt) {
       auth.getContent(jwt).then((res) => {
-        
         setIsUserEmail(res.email);
 
         setLoggedIn(true);
 
-        navigate("/");
+        navigate('/');
       });
     }
   }, [navigate]);
@@ -114,8 +121,8 @@ function App() {
 
   function handleSingOut() {
     setLoggedIn(false);
-    localStorage.removeItem("jwt");
-    navigate("/sign-in");
+    localStorage.removeItem('jwt');
+    navigate('/sign-in');
   }
   function handleCardLike(card) {
     const isLiked = card.likes.some((i) => i._id === currentUser._id);
@@ -160,19 +167,19 @@ function App() {
   }
   return (
     <CurrentUserContext.Provider value={currentUser}>
-      <div className="page">
+      <div className='page'>
         <Header isUserEmail={isUserEmail} onSingOut={handleSingOut} />
         <Routes>
           <Route
-            path="/sign-in"
+            path='/sign-in'
             element={<Login handleLogin={handleLogin} />}
           />
           <Route
-            path="/sign-up"
+            path='/sign-up'
             element={<Register handleRegister={handleRegister} />}
           />
           <Route
-            path="/"
+            path='/'
             element={
               <ProtectedRoute
                 element={Main}
