@@ -9,7 +9,7 @@
 
 ## Ссылки на проект
 
-IP-адрес 51.250.100.88
+IP 51.250.100.88
 
 Frontend https://mesto-react.nomoredomains.rocks
 
