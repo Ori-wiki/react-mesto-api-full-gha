@@ -8,5 +8,5 @@ export const removeLoading = (button) => {
   button.textContent = "Сохранить";
 };
 
-export const BASE_URL = 'http://api.backend-mesto.nomoredomains.rocks/'
+export const BASE_URL = 'https://api.backend-mesto.nomoredomains.rocks/'
 // export const BASE_URL = 'https://mesto.nomoreparties.co/v1/cohort-54/'
