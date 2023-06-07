@@ -5,7 +5,7 @@ const NotFoundError = require('../errors/NotFoundError');
 const BadRequestError = require('../errors/BadRequestError');
 const MangoEmailError = require('../errors/MangoEmailError');
 
-// const { NODE_ENV, JWT_SECRET = 'dev-key' } = process.env;
+const { NODE_ENV, JWT_SECRET } = process.env;
 
 // NODE_ENV=production
 // JWT_SECRET=eb28135ebcfc17578f96d4d65b6c7871f2c803be4180c165061d5c2db621c51b
@@ -99,9 +99,13 @@ const login = (req, res, next) => {
         throw new NotFoundError('Пользователь не найден');
       } else {
         res.status(200).send({
-          token: jwt.sign({ _id: user._id }, 'super-secret-key', {
-            expiresIn: '7d',
-          }),
+          token: jwt.sign(
+            { _id: user._id },
+            NODE_ENV === 'production' ? JWT_SECRET : 'some-secret-key',
+            {
+              expiresIn: '7d',
+            },
+          ),
         });
       }
     })
