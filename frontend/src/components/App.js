@@ -31,22 +31,26 @@ function App() {
   const [currentUser, setCurrentUser] = React.useState({});
   const [cards, setCards] = React.useState([]);
   React.useEffect(() => {
-    console.log('qwe');
-    api
-      .getUserInfo()
-      .then((res) => {
-        setCurrentUser(res);
-      })
-      .catch((err) => console.log(err));
-  }, []);
+    if (loggedIn) {
+      api
+        .getUserInfo()
+        .then((res) => {
+          setCurrentUser(res);
+        })
+        .catch((err) => console.log(err));
+    }
+  }, [loggedIn]);
+
   React.useEffect(() => {
-    api
-      .getCards()
-      .then((res) => {
-        setCards(res);
-      })
-      .catch((err) => console.log(err));
-  }, []);
+    if (loggedIn) {
+      api
+        .getCards()
+        .then((res) => {
+          setCards(res);
+        })
+        .catch((err) => console.log(err));
+    }
+  }, [loggedIn]);
 
   function handleEditAvatarClick() {
     setIsEditAvatarPopupOpen(true);
@@ -86,18 +90,9 @@ function App() {
       .authorize(email, password)
       .then((data) => {
         localStorage.setItem('jwt', data.token);
-        console.log(data);
         setLoggedIn(true);
         setIsUserEmail(email);
         navigate('/');
-      })
-      .then(() => {
-        api
-          .getUserInfo()
-          .then((res) => {
-            setCurrentUser(res);
-          })
-          .catch((err) => console.log(err));
       })
       .catch((err) => console.log(err));
   }
