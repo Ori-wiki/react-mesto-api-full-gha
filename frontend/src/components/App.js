@@ -3,7 +3,7 @@ import { Route, Routes, useNavigate } from 'react-router-dom';
 import { CurrentUserContext } from '../contexts/CurrentUserContext.js';
 
 import api from '../utils/Api.js';
-import auth from '../utils/Auth.js';
+import auth from '../utils/Authz.js';
 import Header from './Header.js';
 import Main from './Main.js';
 import Footer from './Footer.js';
